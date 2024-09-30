@@ -1,12 +1,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary-color: #1976d2; /* Example primary color */
+  --secondary-color: #dc004e; /* Example secondary color */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --primary-color: #90caf9; /* Lighter shade for dark mode */
+    --secondary-color: #ff79b0; /* Lighter shade for dark mode */
   }
 }
 
@@ -19,7 +23,7 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif; /* Include Roboto here */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -39,4 +43,14 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+
+.master-container{
+  background-color: #ff79b0;
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  
 }
