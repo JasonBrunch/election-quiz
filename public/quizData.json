@@ -1,0 +1,28 @@
+{
+    "quiz": [
+      {
+        "question": "What is your favorite color?",
+        "answers": [
+          { "text": "Red", "points": "NDP" },
+          { "text": "Blue", "points": "Cons" },
+          { "text": "Green", "points": "Green" }
+        ]
+      },
+      {
+        "question": "What type of environment do you prefer?",
+        "answers": [
+          { "text": "Urban", "points": "NDP" },
+          { "text": "Rural", "points": "Cons" },
+          { "text": "Forested", "points": "Green" }
+        ]
+      },
+      {
+        "question": "What is your stance on renewable energy?",
+        "answers": [
+          { "text": "Strongly support", "points": "Green" },
+          { "text": "Support but with caution", "points": "NDP" },
+          { "text": "Not a priority", "points": "Cons" }
+        ]
+      }
+    ]
+  }

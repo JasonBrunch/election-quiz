@@ -23,7 +23,7 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Roboto', Arial, Helvetica, sans-serif; /* Include Roboto here */
+  font-family: 'Roboto', Arial, Helvetica, sans-serif; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
