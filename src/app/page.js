@@ -3,8 +3,10 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'; 
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'; 
 
 export default function Home() {
   const [quizStarted, setQuizStarted] = useState(false); 
@@ -12,12 +14,19 @@ export default function Home() {
   const [selectedAnswers, setSelectedAnswers] = useState([]); 
   const [quizData, setQuizData] = useState(null); 
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null); 
+  const [scoreboard, setScoreboard] = useState([]); // Array for tracking points per question
 
   const handleStartQuiz = async () => {
     try {
       const response = await fetch("/quizData.json"); // Fetch JSON from public folder
       const data = await response.json();
       setQuizData(data.quiz); // Set the 'quiz' array directly
+
+      // Initialize scoreboard with 'Unanswered' for each question
+      const initialScoreboard = data.quiz.map(() => "Unanswered");
+      setScoreboard(initialScoreboard);
+      
+
       setQuizStarted(true); // Only start the quiz once the data is loaded
     } catch (error) {
       console.error("Failed to load quiz data:", error);
@@ -27,6 +36,42 @@ export default function Home() {
     setSelectedAnswerIndex(index); // Set the selected answer index
     setSelectedAnswers([...selectedAnswers, answer]); // Track selected answers
   };
+
+  const handleNext = () => {
+    console.log("Next button clicked");
+
+    // Check if an answer is selected
+    if (selectedAnswerIndex !== null) {
+      // Update scoreboard with the points for this answer
+      const updatedScoreboard = [...scoreboard];
+      const selectedAnswer = quizData[currentQuestionIndex].answers[selectedAnswerIndex]; // Get the selected answer
+      updatedScoreboard[currentQuestionIndex] = selectedAnswer.points; // Update with "Green", "NDP", "Cons"
+      setScoreboard(updatedScoreboard);
+      
+      // Debug log for the scoreboard
+      console.log("Updated Scoreboard:", updatedScoreboard);
+
+      // Move to the next question
+      if (currentQuestionIndex < quizData.length - 1) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1); // Increment the question index
+      }
+      // Reset selected answer index for the next question
+      setSelectedAnswerIndex(null);
+    } else {
+      console.warn("No answer selected");
+    }
+  };
+
+  const handleBack = () => {
+    console.log("Back button clicked");
+    // Logic for the "Back" button (if required)
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1); // Decrement the question index
+      setSelectedAnswerIndex(null); // Reset selected answer index when going back
+    }
+  };
+
+
 
   if (!quizStarted) {
     return (
@@ -64,7 +109,7 @@ export default function Home() {
             variant="outlined"
             onClick={() => handleAnswerSelect(answer, index)}
             sx={{
-              margin: "10px",
+          
               display: "block",
               backgroundColor:
                 index === selectedAnswerIndex ? "lightblue" : "inherit", // Simple background change on selection
@@ -75,6 +120,29 @@ export default function Home() {
           </Button>
         ))}
       </div>
+       {/* Navigation Buttons for Back and Next */}
+       <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleBack}
+          disabled={currentQuestionIndex === 0} // Disable "Back" on the first question
+          startIcon={<ArrowBackIcon />} // Add an icon to the button
+          sx={{ width: '120px' }}
+        >
+          Back
+        </Button>
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleNext}
+          endIcon={<ArrowForwardIcon />} // Add an icon to the button
+          sx={{ width: '120px' }}
+        >
+          Next
+        </Button>
+      </Box>
     </div>
   );
 }
