@@ -10,6 +10,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export default function Home() {
   const [quizStarted, setQuizStarted] = useState(false); 
+  const [quizFinished, setQuizFinished] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); 
   const [selectedAnswers, setSelectedAnswers] = useState([]); 
   const [quizData, setQuizData] = useState(null); 
@@ -39,7 +40,7 @@ export default function Home() {
 
   const handleNext = () => {
     console.log("Next button clicked");
-
+  
     // Check if an answer is selected
     if (selectedAnswerIndex !== null) {
       // Update scoreboard with the points for this answer
@@ -47,14 +48,16 @@ export default function Home() {
       const selectedAnswer = quizData[currentQuestionIndex].answers[selectedAnswerIndex]; // Get the selected answer
       updatedScoreboard[currentQuestionIndex] = selectedAnswer.points; // Update with "Green", "NDP", "Cons"
       setScoreboard(updatedScoreboard);
-      
-      // Debug log for the scoreboard
-      console.log("Updated Scoreboard:", updatedScoreboard);
-
-      // Move to the next question
+  
+      // Move to the next question or finish the quiz
       if (currentQuestionIndex < quizData.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1); // Increment the question index
+      } else {
+        // If it's the last question, mark the quiz as finished
+        console.log("Quiz finished");
+        setQuizFinished(true);
       }
+  
       // Reset selected answer index for the next question
       setSelectedAnswerIndex(null);
     } else {
@@ -72,7 +75,7 @@ export default function Home() {
   };
 
 
-
+  //Start Screen when Quiz Not Started
   if (!quizStarted) {
     return (
       <div className="master-container">
@@ -95,6 +98,21 @@ export default function Home() {
       </div>
     );
   }
+  if(quizFinished){
+    return (
+      <div className="master-container">
+        <h1>Good Job!</h1>
+        <h2>Scoreboard:</h2>
+        <ul>
+          {scoreboard.map((score, index) => (
+            <li key={index}>
+              Question {index + 1}: {score === "Unanswered" ? "Not Answered" : score} points
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
 
   // When quiz starts, display the current question and its answers
   const currentQuestion = quizData[currentQuestionIndex];
