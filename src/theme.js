@@ -5,22 +5,22 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2', // Replace with your primary color
+      main: '#6f4688', 
     },
     secondary: {
-      main: '#dc004e', // Replace with your secondary color
+      main: '#dc004e', 
     },
     background: {
-      default: '#ffffff', // Use your background variable or color
-      paper: '#ffffff', // Paper background
+      default: '#ffffff', 
+      paper: '#ffffff', 
     },
     text: {
-      primary: '#171717', // Use your foreground variable or color
-      secondary: 'rgba(255, 255, 255, 0.7)', // Example for secondary text
+      primary: '#171717', 
+      secondary: 'rgba(255, 255, 255, 0.7)', 
     },
   },
   typography: {
-    fontFamily: 'var(--font-roboto)', // Use the Roboto font
+    fontFamily: 'var(--font-roboto)', 
     h1: {
       fontSize: '2.5rem',
       fontWeight: 700,
@@ -35,9 +35,9 @@ const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 8, // Default border radius for components
+    borderRadius: 8, 
   },
-  spacing: 8, // Default spacing unit
+  spacing: 8, 
 });
 
 export default theme;
