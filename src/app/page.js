@@ -8,6 +8,7 @@ import { Button, Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { LinearProgress } from "@mui/material";
 
 export default function Home() {
   const [quizStarted, setQuizStarted] = useState(false);
@@ -138,18 +139,30 @@ export default function Home() {
 
   return (
     <div className="quiz-container">
-      <h2>{currentQuestion.question}</h2>
-      <div className="answers">
+      <LinearProgress value="50" sx={{ width: "100%" }} variant="determinate" />
+      <div className="heading-container">
+        <h2>{currentQuestion.question}</h2>
+      </div>
+      <div className="answers-container">
         {currentQuestion.answers.map((answer, index) => (
           <Button
             key={index}
-            variant="outlined"
+            variant="contained"
             onClick={() => handleAnswerSelect(answer, index)}
             sx={{
               display: "block",
-              backgroundColor:
-                index === selectedAnswerIndex ? "lightblue" : "inherit", // Simple background change on selection
-              borderColor: index === selectedAnswerIndex ? "blue" : "inherit", // Optional: border change on selection
+              backgroundColor: "lightblue", // Light blue background for the card
+              color: "black", // Black text color
+              textAlign: "left", // Align text to the left
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", // Slight shadow
+              borderRadius: "8px", // Rounded corners for card-like appearance
+              padding: "16px", // Padding for spacing inside the button
+              width: "100%", // Full width of the container
+              "&:hover": {
+                backgroundColor: "#add8e6", // A bit darker blue on hover
+              },
+              borderColor: index === selectedAnswerIndex ? "blue" : "inherit", // Border change on selection
+              transition: "background-color 0.3s ease", // Smooth transition for background color change
             }}
           >
             {answer.text}
