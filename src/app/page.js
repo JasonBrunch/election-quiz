@@ -138,6 +138,34 @@ export default function Home() {
   }
 
   if (quizFinished) {
+
+
+
+    const getAlignmentMessage = () => {
+      const [green, ndp, cons] = finalResults;
+  
+      // Find the maximum score
+      const maxScore = Math.max(green, ndp, cons);
+  
+      // Determine which groups have the maximum score
+      const alignedParties = [];
+      if (green === maxScore) alignedParties.push("the BC Greens");
+      if (ndp === maxScore) alignedParties.push("the BC NDP");
+      if (cons === maxScore) alignedParties.push("the BC Conservatives");
+  
+      // Construct the result message based on how many parties are tied
+      if (alignedParties.length === 1) {
+        return `Your answers most align with ${alignedParties[0]}.`;
+      } else if (alignedParties.length === 2) {
+        return `Your answers most align with both ${alignedParties[0]} and ${alignedParties[1]}.`;
+      } else {
+        return `Your answers are equally aligned with the BC Greens, BC NDP, and BC Conservatives.`;
+      }
+    };
+  
+
+
+
     return (
       <div className="finished-container">
         <div className="question-tracking-container">
@@ -150,9 +178,13 @@ export default function Home() {
             variant="determinate"
           />
         </div>
+       
+          
 
+        
         <div className="heading-container">
-          <h2>Good Job!</h2>
+          <h1>RESULTS</h1>
+          <h2>{getAlignmentMessage()}</h2> {/* Dynamically generated message */}
         </div>
 
       {/* Display the quiz result chart */}
@@ -161,15 +193,7 @@ export default function Home() {
       </div>
       
 
-        <h2>Scoreboard:</h2>
-        <ul>
-          {scoreboard.map((score, index) => (
-            <li key={index}>
-              Question {index + 1}:{" "}
-              {score === "Unanswered" ? "Not Answered" : score} points
-            </li>
-          ))}
-        </ul>
+        
       </div>
     );
   }

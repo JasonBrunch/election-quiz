@@ -83,7 +83,12 @@ h3{
   text-align: center;
   width: 100%;
   padding: 2rem 0rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
+
 
 /*QUIZ SECTION*/
 .quiz-container{
