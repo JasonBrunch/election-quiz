@@ -9,6 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { LinearProgress } from "@mui/material";
+import QuizResultChart from "../components/QuizResultChart";
 
 export default function Home() {
   const [quizStarted, setQuizStarted] = useState(false);
@@ -18,6 +19,8 @@ export default function Home() {
   const [quizData, setQuizData] = useState(null);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [scoreboard, setScoreboard] = useState([]); // Array for tracking points per question
+  const [error, setError] = useState("");
+  const [finalResults, setFinalResults] = useState([0, 0, 0]); // [Green, NDP, Cons]
 
   const handleStartQuiz = async () => {
     try {
@@ -44,6 +47,8 @@ export default function Home() {
 
     // Check if an answer is selected
     if (selectedAnswerIndex !== null) {
+      //reset the error if you had one previously
+      setError("");
       // Update scoreboard with the points for this answer
       const updatedScoreboard = [...scoreboard];
       const selectedAnswer =
@@ -57,13 +62,27 @@ export default function Home() {
       } else {
         // If it's the last question, mark the quiz as finished
         console.log("Quiz finished");
+
+        // Calculate totals for each party
+        const results = [0, 0, 0]; // [Green, NDP, Cons]
+
+        scoreboard.forEach((answer) => {
+          if (answer === "Green") results[0]++;
+          else if (answer === "NDP") results[1]++;
+          else if (answer === "Cons") results[2]++;
+        });
+
         setQuizFinished(true);
+        setFinalResults(results); // Store the final results in state to pass to the chart
+
+     
       }
 
       // Reset selected answer index for the next question
       setSelectedAnswerIndex(null);
     } else {
       console.warn("No answer selected");
+      setError("*Please select an answer to continue");
     }
   };
 
@@ -117,10 +136,31 @@ export default function Home() {
       </div>
     );
   }
+
   if (quizFinished) {
     return (
-      <div className="master-container">
-        <h1>Good Job!</h1>
+      <div className="finished-container">
+        <div className="question-tracking-container">
+          <h3>
+            Question: {currentQuestionIndex + 1} / {quizData.length}
+          </h3>
+          <LinearProgress
+            value="50"
+            sx={{ width: "100%" }}
+            variant="determinate"
+          />
+        </div>
+
+        <div className="heading-container">
+          <h2>Good Job!</h2>
+        </div>
+
+      {/* Display the quiz result chart */}
+      <div className="quiz-chart-container">
+        <QuizResultChart results={finalResults} />
+      </div>
+      
+
         <h2>Scoreboard:</h2>
         <ul>
           {scoreboard.map((score, index) => (
@@ -139,7 +179,17 @@ export default function Home() {
 
   return (
     <div className="quiz-container">
-      <LinearProgress value="50" sx={{ width: "100%" }} variant="determinate" />
+      <div className="question-tracking-container">
+        <h3>
+          Question: {currentQuestionIndex + 1} / {quizData.length}
+        </h3>
+        <LinearProgress
+          value="50"
+          sx={{ width: "100%" }}
+          variant="determinate"
+        />
+      </div>
+
       <div className="heading-container">
         <h2>{currentQuestion.question}</h2>
       </div>
@@ -155,7 +205,7 @@ export default function Home() {
               color: "black", // Black text color
               textAlign: "left", // Align text to the left
               boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", // Slight shadow
-              borderRadius: "8px", // Rounded corners for card-like appearance
+              borderRadius: "5px", // Rounded corners for card-like appearance
               padding: "16px", // Padding for spacing inside the button
               width: "100%", // Full width of the container
               "&:hover": {
@@ -169,21 +219,25 @@ export default function Home() {
           </Button>
         ))}
       </div>
+      <div className="error-container">
+        <h3>{error}</h3>
+      </div>
       {/* Navigation Buttons for Back and Next */}
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          marginTop: "20px",
+
+          width: "100%",
         }}
       >
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           onClick={handleBack}
           disabled={currentQuestionIndex === 0} // Disable "Back" on the first question
           startIcon={<ArrowBackIcon />} // Add an icon to the button
-          sx={{ width: "120px" }}
+          sx={{ width: "120px", borderRadius: "50px" }}
         >
           Back
         </Button>
@@ -193,7 +247,7 @@ export default function Home() {
           color="primary"
           onClick={handleNext}
           endIcon={<ArrowForwardIcon />} // Add an icon to the button
-          sx={{ width: "120px" }}
+          sx={{ width: "120px", borderRadius: "50px" }}
         >
           Next
         </Button>
