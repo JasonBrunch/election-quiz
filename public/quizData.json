@@ -1,19 +1,19 @@
 {
     "quiz": [
       {
-        "question": "What is your favorite color?",
+        "question": "How should British Columbia address housing affordability?",
         "answers": [
-          { "text": "Red", "points": "NDP" },
-          { "text": "Blue", "points": "Cons" },
-          { "text": "Green", "points": "Green" }
+          { "text": "Increase housing supply by building 300,000 new homes and cutting red tape to speed up construction. Help first-time homebuyers by reducing upfront costs, crack down on housing speculation, and expand affordable rental housing. Prioritize building homes on public land and support non-market and co-op housing to ensure affordability for middle-class families and renters.", "points": "NDP" },
+          { "text": "Cut the red tape and taxes to increase housing supply and affordability. Provide immediate relief through a tax rebate for renters and homeowners, faster permit approvals, and the removal of certain housing regulations. Emphasize collaboration with local governments to streamline construction and reduce costs, addressing the housing crisis directly.", "points": "Cons" },
+          { "text": "Focus on creating more non-market housing by investing $1.5 billion annually to build 26,000 affordable homes each year, with a focus on Indigenous housing. Implement vacancy control to protect renters, end exclusionary zoning, and use public land for affordable housing. Strengthen renter protections to prevent renovictions and increase financial support for low-income renters and seniors. Recognize housing as a basic human right, and introduce measures to limit the commodification of homes by investors.", "points": "Green" }
         ]
       },
       {
-        "question": "What type of environment do you prefer?",
+        "question": "What steps should the provincial government take to improve healthcare accessibility and quality in British Columbia?",
         "answers": [
-          { "text": "Urban", "points": "NDP" },
-          { "text": "Rural", "points": "Cons" },
-          { "text": "Forested", "points": "Green" }
+          { "text": "The provincial government must strengthen public healthcare by adding 45,000 healthcare workers and connecting every resident to a family doctor or nurse practitioner. We should streamline licensing for foreign-trained professionals within six weeks and offer loan forgiveness incentives for graduates committing to five years of service in BC. Additionally, building new hospitals, reducing wait times for cancer care, and enhancing mental health resources for youth will ensure our healthcare system meets growing demand while safeguarding it from privatization.", "points": "NDP" },
+          { "text": "To improve healthcare accessibility and quality in British Columbia, the provincial government must adopt a new 'Patients First' model. This involves creating a single-payer healthcare system that funds hospitals based on the number of patients they treat, encouraging efficiency and faster care. They should guarantee timely access to diagnostics and surgeries by allowing patients to seek care at pre-approved out-of-province facilities if wait times exceed recommended limits. Expanding partnerships with non-government clinics will help reduce wait times for priority procedures. Finally, simplifying paperwork for family doctors will enable them to see more patients, ensuring everyone can access the care they need promptly.", "points": "Cons" },
+          { "text": "The provincial government must enhance public healthcare by establishing integrated community health centers in every riding, ensuring all residents have access to a family doctor or nurse practitioner. We should streamline administrative processes, remove unnecessary requirements like doctors’ notes for short-term illnesses, and expedite licensing for foreign-trained professionals. Additionally, increasing funding for public healthcare workers, implementing loan forgiveness incentives for healthcare graduates, and conducting health impact assessments for industrial activities will strengthen our system while safeguarding it from privatization.", "points": "Green" }
         ]
       },
       {
