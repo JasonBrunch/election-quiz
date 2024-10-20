@@ -59,6 +59,10 @@ export default function Home() {
       // Move to the next question or finish the quiz
       if (currentQuestionIndex < quizData.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1); // Increment the question index
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth" // This gives a smooth scrolling effect
+        });
       } else {
         // If it's the last question, mark the quiz as finished
         console.log("Quiz finished");
@@ -74,8 +78,6 @@ export default function Home() {
 
         setQuizFinished(true);
         setFinalResults(results); // Store the final results in state to pass to the chart
-
-     
       }
 
       // Reset selected answer index for the next question
@@ -95,7 +97,7 @@ export default function Home() {
     }
   };
 
-  //Start Screen when Quiz Not Started
+  ////////////////////////////////////////////////Start Screen when Quiz Not Started///////////////////////////////////////////
   if (!quizStarted) {
     return (
       <div className="master-container">
@@ -137,22 +139,20 @@ export default function Home() {
     );
   }
 
+  ////////////////////////////////////////////////////QUIZ FINISHED SCREEN//////////////////////////////////////////////////////
   if (quizFinished) {
-
-
-
     const getAlignmentMessage = () => {
       const [green, ndp, cons] = finalResults;
-  
+
       // Find the maximum score
       const maxScore = Math.max(green, ndp, cons);
-  
+
       // Determine which groups have the maximum score
       const alignedParties = [];
       if (green === maxScore) alignedParties.push("the BC Greens");
       if (ndp === maxScore) alignedParties.push("the BC NDP");
       if (cons === maxScore) alignedParties.push("the BC Conservatives");
-  
+
       // Construct the result message based on how many parties are tied
       if (alignedParties.length === 1) {
         return `Your answers most align with ${alignedParties[0]}.`;
@@ -162,9 +162,6 @@ export default function Home() {
         return `Your answers are equally aligned with the BC Greens, BC NDP, and BC Conservatives.`;
       }
     };
-  
-
-
 
     return (
       <div className="finished-container">
@@ -178,27 +175,21 @@ export default function Home() {
             variant="determinate"
           />
         </div>
-       
-          
 
-        
         <div className="heading-container">
           <h1>RESULTS</h1>
           <h2>{getAlignmentMessage()}</h2> {/* Dynamically generated message */}
         </div>
 
-      {/* Display the quiz result chart */}
-      <div className="quiz-chart-container">
-        <QuizResultChart results={finalResults} />
-      </div>
-      
-
-        
+        {/* Display the quiz result chart */}
+        <div className="quiz-chart-container">
+          <QuizResultChart results={finalResults} />
+        </div>
       </div>
     );
   }
 
-  // When quiz starts, display the current question and its answers
+  //////////////////////////////QUIZ QUESTIONS AND ANSWERS //////////////////////////////////////////////////////
   const currentQuestion = quizData[currentQuestionIndex];
 
   return (
@@ -225,18 +216,24 @@ export default function Home() {
             onClick={() => handleAnswerSelect(answer, index)}
             sx={{
               display: "block",
-              backgroundColor: "lightblue", // Light blue background for the card
-              color: "black", // Black text color
+              backgroundColor:
+                index === selectedAnswerIndex ? "#90caf9" : "lightblue", // Red for selected, blue for unselected
+              color: "black", // White text for visibility
               textAlign: "left", // Align text to the left
-              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", // Slight shadow
-              borderRadius: "5px", // Rounded corners for card-like appearance
-              padding: "16px", // Padding for spacing inside the button
-              width: "100%", // Full width of the container
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)", // Slight shadow
+              borderRadius: "5px", // Rounded corners
+              padding: "16px", // Padding for spacing
+              width: "100%", // Full width
+              border:
+                index === selectedAnswerIndex
+                  ? "2px solid black"
+                  : "1px solid transparent", // Highlight border of the selected answer
+              textTransform: "none", // Prevent Material UI from forcing all caps
               "&:hover": {
-                backgroundColor: "#add8e6", // A bit darker blue on hover
+                backgroundColor:
+                  index === selectedAnswerIndex ? "#9090f9" : "#64b5f6", // Darker red and blue on hover
               },
-              borderColor: index === selectedAnswerIndex ? "blue" : "inherit", // Border change on selection
-              transition: "background-color 0.3s ease", // Smooth transition for background color change
+              transition: "background-color 0.3s ease, border-color 0.3s ease", // Smooth transition
             }}
           >
             {answer.text}
@@ -273,7 +270,7 @@ export default function Home() {
           endIcon={<ArrowForwardIcon />} // Add an icon to the button
           sx={{ width: "120px", borderRadius: "50px" }}
         >
-          Next
+            {currentQuestionIndex === quizData.length - 1 ? "Submit" : "Next"}
         </Button>
       </Box>
     </div>
