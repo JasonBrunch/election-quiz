@@ -97,6 +97,18 @@ export default function Home() {
     }
   };
 
+  const currentProgress = () => {
+    //get the current question
+    console.log(currentQuestionIndex + 1);
+    const questionNumber = currentQuestionIndex + 1;
+    const progressAmount = questionNumber / quizData.length * 100;
+    
+    return progressAmount;
+    //divide the current question by the total question amount
+    //multiply by 100
+    //return the answer
+  };
+
   ////////////////////////////////////////////////Start Screen when Quiz Not Started///////////////////////////////////////////
   if (!quizStarted) {
     return (
@@ -199,7 +211,7 @@ export default function Home() {
           Question: {currentQuestionIndex + 1} / {quizData.length}
         </h3>
         <LinearProgress
-          value="50"
+          value={currentProgress()}
           sx={{ width: "100%" }}
           variant="determinate"
         />
