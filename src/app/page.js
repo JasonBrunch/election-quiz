@@ -43,8 +43,6 @@ export default function Home() {
   };
 
   const handleNext = () => {
- 
-
     // Check if an answer is selected
     if (selectedAnswerIndex !== null) {
       //reset the error if you had one previously
@@ -89,7 +87,6 @@ export default function Home() {
   };
 
   const handleBack = () => {
-  
     // Logic for the "Back" button (if required)
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1); // Decrement the question index
@@ -98,7 +95,6 @@ export default function Home() {
   };
 
   const currentProgress = () => {
-   
     const questionNumber = currentQuestionIndex + 1;
     const progressAmount = (questionNumber / quizData.length) * 100;
 
@@ -108,7 +104,7 @@ export default function Home() {
   ////////////////////////////////////////////////Start Screen when Quiz Not Started///////////////////////////////////////////
   if (!quizStarted) {
     return (
-      <div className="master-container debug">
+      <div className="master-container ">
         <Image
           src="/characters.jpg"
           alt="Character sketch of the 3 candidates"
@@ -116,16 +112,14 @@ export default function Home() {
           height={0}
           sizes="100vw"
           priority={true}
-          style={{ width: "auto", height: "100%", maxHeight: "400px" }} 
-
-       
+          style={{ width: "auto", height: "100%", maxHeight: "400px" }}
         />
         <div className="text-container">
           <img src="bcVotesHeading.svg" alt="BC Votes Heading" />
           <p>
-          Take this quick quiz to see which of British Columbia&apos;s three
-          political parties aligns with your views.
-        </p>
+            Take this quick quiz to see which of British Columbia&apos;s three
+            political parties aligns with your views.
+          </p>
         </div>
         {/* Pill-Shaped Button to Start Quiz */}
         <div className="button-container">
@@ -179,14 +173,14 @@ export default function Home() {
         <div>
           {alignedParties.length === 1 ? (
             <>
-            <h2>Your answers most align with:</h2>
+              <h2>Your answers most align with:</h2>
               <Image
                 src={alignedParties[0].image}
                 alt={`${alignedParties[0].leader}'s picture`}
                 width={0}
                 height={0}
                 sizes="100vw"
-                style={{ width: "100%", height: "auto" }} 
+                style={{ width: "100%", height: "auto" }}
               />
             </>
           ) : (
@@ -203,7 +197,7 @@ export default function Home() {
                     width={0}
                     height={0}
                     sizes="100vw"
-                  style={{ width: "100%", height: "auto", maxWidth:"250px" }} 
+                    style={{ width: "100%", height: "auto", maxWidth: "250px" }}
                   />
                 </div>
               ))}
@@ -228,7 +222,7 @@ export default function Home() {
 
         <div className="heading-container">
           <h1>RESULTS</h1>
-          
+
           {getAlignmentMessage()}
         </div>
 
@@ -262,38 +256,43 @@ export default function Home() {
       <div className="answers-container">
         {currentQuestion.answers.map((answer, index) => (
           <Button
-          key={index}
-          variant="contained"
-          onClick={() => handleAnswerSelect(answer, index)}
-          sx={{
-            display: "block",
-            backgroundColor: index === selectedAnswerIndex ? "#90caf9" : "lightblue",
-            color: "rgba(0, 0, 0, 0.87)",
-            textAlign: "left",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-            borderRadius: "5px",
-            padding: {
-              xs: "12px", // smaller padding on extra-small screens
-              sm: "14px", // medium padding on small screens
-              md: "30px", // larger padding on medium screens and above
-            },
-            width: "100%",
-            border: index === selectedAnswerIndex ? "2px solid black" : "1px solid transparent",
-            textTransform: "none",
-            fontSize: {
-              xs: "1rem", // default size for small screens
-              sm: "1.2rem", // medium screens
-              md: "1.4rem", // larger screens
-              lg: "1.rem", // extra large screens
-            },
-            "&:hover": {
-              backgroundColor: index === selectedAnswerIndex ? "#9090f9" : "#64b5f6",
-            },
-            transition: "background-color 0.3s ease, border-color 0.3s ease",
-          }}
-        >
-          {answer.text}
-        </Button>
+            key={index}
+            variant="contained"
+            onClick={() => handleAnswerSelect(answer, index)}
+            sx={{
+              display: "block",
+              backgroundColor:
+                index === selectedAnswerIndex ? "#90caf9" : "lightblue",
+              color: "rgba(0, 0, 0, 0.87)",
+              textAlign: "left",
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+              borderRadius: "5px",
+              padding: {
+                xs: "12px", // smaller padding on extra-small screens
+                sm: "14px", // medium padding on small screens
+                md: "30px", // larger padding on medium screens and above
+              },
+              width: "100%",
+              border:
+                index === selectedAnswerIndex
+                  ? "2px solid black"
+                  : "1px solid transparent",
+              textTransform: "none",
+              fontSize: {
+                xs: "1rem", // default size for small screens
+                sm: "1.2rem", // medium screens
+                md: "1.4rem", // larger screens
+                lg: "1.rem", // extra large screens
+              },
+              "&:hover": {
+                backgroundColor:
+                  index === selectedAnswerIndex ? "#9090f9" : "#64b5f6",
+              },
+              transition: "background-color 0.3s ease, border-color 0.3s ease",
+            }}
+          >
+            {answer.text}
+          </Button>
         ))}
       </div>
       <div className="error-container">
