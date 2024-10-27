@@ -43,7 +43,7 @@ export default function Home() {
   };
 
   const handleNext = () => {
-    console.log("Next button clicked");
+ 
 
     // Check if an answer is selected
     if (selectedAnswerIndex !== null) {
@@ -89,7 +89,7 @@ export default function Home() {
   };
 
   const handleBack = () => {
-    console.log("Back button clicked");
+  
     // Logic for the "Back" button (if required)
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1); // Decrement the question index
@@ -98,7 +98,7 @@ export default function Home() {
   };
 
   const currentProgress = () => {
-    console.log(currentQuestionIndex + 1);
+   
     const questionNumber = currentQuestionIndex + 1;
     const progressAmount = (questionNumber / quizData.length) * 100;
 
@@ -123,9 +123,9 @@ export default function Home() {
         <div className="text-container">
           <img src="bcVotesHeading.svg" alt="BC Votes Heading" />
           <p>
-            Take this quick quiz to see which of British Columbia's three
-            political parties aligns with your views.
-          </p>
+          Take this quick quiz to see which of British Columbia&apos;s three
+          political parties aligns with your views.
+        </p>
         </div>
         {/* Pill-Shaped Button to Start Quiz */}
         <div className="button-container">
