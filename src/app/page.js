@@ -61,7 +61,7 @@ export default function Home() {
         setCurrentQuestionIndex(currentQuestionIndex + 1); // Increment the question index
         window.scrollTo({
           top: 0,
-          behavior: "smooth" // This gives a smooth scrolling effect
+          behavior: "smooth", // This gives a smooth scrolling effect
         });
       } else {
         // If it's the last question, mark the quiz as finished
@@ -98,15 +98,11 @@ export default function Home() {
   };
 
   const currentProgress = () => {
-    //get the current question
     console.log(currentQuestionIndex + 1);
     const questionNumber = currentQuestionIndex + 1;
-    const progressAmount = questionNumber / quizData.length * 100;
-    
+    const progressAmount = (questionNumber / quizData.length) * 100;
+
     return progressAmount;
-    //divide the current question by the total question amount
-    //multiply by 100
-    //return the answer
   };
 
   ////////////////////////////////////////////////Start Screen when Quiz Not Started///////////////////////////////////////////
@@ -155,24 +151,63 @@ export default function Home() {
   if (quizFinished) {
     const getAlignmentMessage = () => {
       const [green, ndp, cons] = finalResults;
-
-      // Find the maximum score
       const maxScore = Math.max(green, ndp, cons);
-
-      // Determine which groups have the maximum score
       const alignedParties = [];
-      if (green === maxScore) alignedParties.push("the BC Greens");
-      if (ndp === maxScore) alignedParties.push("the BC NDP");
-      if (cons === maxScore) alignedParties.push("the BC Conservatives");
 
-      // Construct the result message based on how many parties are tied
-      if (alignedParties.length === 1) {
-        return `Your answers most align with ${alignedParties[0]}.`;
-      } else if (alignedParties.length === 2) {
-        return `Your answers most align with both ${alignedParties[0]} and ${alignedParties[1]}.`;
-      } else {
-        return `Your answers are equally aligned with the BC Greens, BC NDP, and BC Conservatives.`;
-      }
+      if (green === maxScore)
+        alignedParties.push({
+          name: "BC Greens",
+          leader: "Sonia",
+          image: "/Sonia.jpg",
+        });
+      if (ndp === maxScore)
+        alignedParties.push({
+          name: "BC NDP",
+          leader: "David",
+          image: "/David.jpg",
+        });
+      if (cons === maxScore)
+        alignedParties.push({
+          name: "BC Conservatives",
+          leader: "John",
+          image: "/John.jpg",
+        });
+
+      return (
+        <div>
+          {alignedParties.length === 1 ? (
+            <>
+          
+
+              <Image
+                src={alignedParties[0].image}
+                alt={`${alignedParties[0].leader}'s picture`}
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: "100%", height: "auto" }} // optional
+              />
+            </>
+          ) : (
+            <>
+              <h2>
+                Your answers most align with{" "}
+                {alignedParties.length === 2 ? "both:" : "all three parties:"}
+              </h2>
+              {alignedParties.map((party, index) => (
+                <div key={index}>
+                  <Image
+                    src={party.image}
+                    alt={`${party.leader}'s picture`}
+                    width={639}
+                    height={874}
+                  />
+                </div>
+              ))}
+            </>
+          )}
+        </div>
+      );
     };
 
     return (
@@ -190,7 +225,8 @@ export default function Home() {
 
         <div className="heading-container">
           <h1>RESULTS</h1>
-          <h2>{getAlignmentMessage()}</h2> {/* Dynamically generated message */}
+          <h2>Your answers most align with:</h2>
+          {getAlignmentMessage()}
         </div>
 
         {/* Display the quiz result chart */}
@@ -282,7 +318,7 @@ export default function Home() {
           endIcon={<ArrowForwardIcon />} // Add an icon to the button
           sx={{ width: "120px", borderRadius: "50px" }}
         >
-            {currentQuestionIndex === quizData.length - 1 ? "Submit" : "Next"}
+          {currentQuestionIndex === quizData.length - 1 ? "Submit" : "Next"}
         </Button>
       </Box>
     </div>
