@@ -108,7 +108,7 @@ export default function Home() {
   ////////////////////////////////////////////////Start Screen when Quiz Not Started///////////////////////////////////////////
   if (!quizStarted) {
     return (
-      <div className="master-container">
+      <div className="master-container debug">
         <Image
           src="/characters.jpg"
           alt="Character sketch of the 3 candidates"
@@ -116,7 +116,9 @@ export default function Home() {
           height={0}
           sizes="100vw"
           priority={true}
-          style={{ width: "100%", height: "auto" }} // optional
+          style={{ width: "auto", height: "100%", maxHeight: "400px" }} 
+
+       
         />
         <div className="text-container">
           <img src="bcVotesHeading.svg" alt="BC Votes Heading" />
@@ -177,15 +179,14 @@ export default function Home() {
         <div>
           {alignedParties.length === 1 ? (
             <>
-          
-
+            <h2>Your answers most align with:</h2>
               <Image
                 src={alignedParties[0].image}
                 alt={`${alignedParties[0].leader}'s picture`}
                 width={0}
                 height={0}
                 sizes="100vw"
-                style={{ width: "100%", height: "auto" }} // optional
+                style={{ width: "100%", height: "auto" }} 
               />
             </>
           ) : (
@@ -199,8 +200,10 @@ export default function Home() {
                   <Image
                     src={party.image}
                     alt={`${party.leader}'s picture`}
-                    width={639}
-                    height={874}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                  style={{ width: "100%", height: "auto", maxWidth:"250px" }} 
                   />
                 </div>
               ))}
@@ -225,7 +228,7 @@ export default function Home() {
 
         <div className="heading-container">
           <h1>RESULTS</h1>
-          <h2>Your answers most align with:</h2>
+          
           {getAlignmentMessage()}
         </div>
 
@@ -259,33 +262,38 @@ export default function Home() {
       <div className="answers-container">
         {currentQuestion.answers.map((answer, index) => (
           <Button
-            key={index}
-            variant="contained"
-            onClick={() => handleAnswerSelect(answer, index)}
-            sx={{
-              display: "block",
-              backgroundColor:
-                index === selectedAnswerIndex ? "#90caf9" : "lightblue", // Red for selected, blue for unselected
-              color: "black", // White text for visibility
-              textAlign: "left", // Align text to the left
-              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)", // Slight shadow
-              borderRadius: "5px", // Rounded corners
-              padding: "16px", // Padding for spacing
-              width: "100%", // Full width
-              border:
-                index === selectedAnswerIndex
-                  ? "2px solid black"
-                  : "1px solid transparent", // Highlight border of the selected answer
-              textTransform: "none", // Prevent Material UI from forcing all caps
-              "&:hover": {
-                backgroundColor:
-                  index === selectedAnswerIndex ? "#9090f9" : "#64b5f6", // Darker red and blue on hover
-              },
-              transition: "background-color 0.3s ease, border-color 0.3s ease", // Smooth transition
-            }}
-          >
-            {answer.text}
-          </Button>
+          key={index}
+          variant="contained"
+          onClick={() => handleAnswerSelect(answer, index)}
+          sx={{
+            display: "block",
+            backgroundColor: index === selectedAnswerIndex ? "#90caf9" : "lightblue",
+            color: "rgba(0, 0, 0, 0.87)",
+            textAlign: "left",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+            borderRadius: "5px",
+            padding: {
+              xs: "12px", // smaller padding on extra-small screens
+              sm: "14px", // medium padding on small screens
+              md: "30px", // larger padding on medium screens and above
+            },
+            width: "100%",
+            border: index === selectedAnswerIndex ? "2px solid black" : "1px solid transparent",
+            textTransform: "none",
+            fontSize: {
+              xs: "1rem", // default size for small screens
+              sm: "1.2rem", // medium screens
+              md: "1.4rem", // larger screens
+              lg: "1.rem", // extra large screens
+            },
+            "&:hover": {
+              backgroundColor: index === selectedAnswerIndex ? "#9090f9" : "#64b5f6",
+            },
+            transition: "background-color 0.3s ease, border-color 0.3s ease",
+          }}
+        >
+          {answer.text}
+        </Button>
         ))}
       </div>
       <div className="error-container">
